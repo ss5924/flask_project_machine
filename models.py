@@ -1,7 +1,15 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import pytz
 
 db = SQLAlchemy()
+
+
+def get_korea_time():
+    tz_korea = pytz.timezone('Asia/Seoul')
+    now = datetime.utcnow()
+    now = now.replace(tzinfo=pytz.utc)
+    return now.astimezone(tz_korea)
 
 
 class Vendor(db.Model):
@@ -9,8 +17,8 @@ class Vendor(db.Model):
     vendor_name = db.Column(db.String(64))
     vendor_address = db.Column(db.String(512))
     vendor_fax = db.Column(db.String(64))
-    create_at = db.Column(db.DateTime, default=datetime.utcnow)
-    update_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    create_at = db.Column(db.DateTime, default=get_korea_time)
+    update_at = db.Column(db.DateTime, default=get_korea_time, onupdate=get_korea_time)
 
 
 class BusinessLocation(db.Model):
@@ -18,8 +26,8 @@ class BusinessLocation(db.Model):
     business_location_name = db.Column(db.String(64))
     business_location_address = db.Column(db.String(512))
     business_location_type = db.Column(db.String(64))
-    create_at = db.Column(db.DateTime, default=datetime.utcnow)
-    update_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    create_at = db.Column(db.DateTime, default=get_korea_time)
+    update_at = db.Column(db.DateTime, default=get_korea_time, onupdate=get_korea_time)
 
 
 class Machine(db.Model):
@@ -28,8 +36,8 @@ class Machine(db.Model):
     machine_name = db.Column(db.String(64))
     machine_type = db.Column(db.String(32))
     manufacturer = db.Column(db.String(64))
-    create_at = db.Column(db.DateTime, default=datetime.utcnow)
-    update_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    create_at = db.Column(db.DateTime, default=get_korea_time)
+    update_at = db.Column(db.DateTime, default=get_korea_time, onupdate=get_korea_time)
     # business_location = db.relationship('BusinessLocation', backref=db.backref('machines', lazy=True))
     business_location = db.relationship('BusinessLocation', backref=db.backref('machines', lazy='joined'))
 
