@@ -1,6 +1,7 @@
 from flask import Flask
 from business_location import business_location_bp
 from vendor import vendor_bp
+from machine import machine_bp
 from models import db
 
 app = Flask(__name__)
@@ -9,6 +10,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.register_blueprint(vendor_bp)
 app.register_blueprint(business_location_bp)
+app.register_blueprint(machine_bp)
 
 db.init_app(app)
 

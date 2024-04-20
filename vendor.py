@@ -4,7 +4,6 @@ from models import db, Vendor
 vendor_bp = Blueprint('vendor', __name__)
 
 
-# Create
 @vendor_bp.route('/vendor', methods=['POST'])
 def add_vendor():
     data = request.get_json()
@@ -15,7 +14,6 @@ def add_vendor():
     return jsonify({'message': 'Vendor created successfully'}), 201
 
 
-# Read
 @vendor_bp.route('/vendor/<int:id>', methods=['GET'])
 def get_vendor(id):
     vendor = Vendor.query.get(id)
@@ -25,7 +23,6 @@ def get_vendor(id):
         {'vendor_name': vendor.vendor_name, 'vendor_address': vendor.vendor_address, 'vendor_fax': vendor.vendor_fax})
 
 
-# Update
 @vendor_bp.route('/vendor/<int:id>', methods=['PUT'])
 def update_vendor(id):
     vendor = Vendor.query.get(id)
@@ -39,7 +36,6 @@ def update_vendor(id):
     return jsonify({'message': 'Vendor updated successfully'})
 
 
-# Delete
 @vendor_bp.route('/vendor/<int:id>', methods=['DELETE'])
 def delete_vendor(id):
     vendor = Vendor.query.get(id)
